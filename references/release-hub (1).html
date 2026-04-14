@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Release Hub | Mission Control</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #080f1f;
+  --bg2:      #0d1628;
+  --bg3:      #111d35;
+  --bg4:      #172244;
+  --bg5:      #1e2c52;
+  --bg6:      #253460;
+  --primary:  #5da5f5;
+  --primary2: #3d8ee8;
+  --teal:     #34d5a8;
+  --teal2:    #1fb88d;
+  --amber:    #f0b429;
+  --red:      #f87171;
+  --red2:     #ef4444;
+  --purple:   #a78bfa;
+  --text:     #e2eaf8;
+  --text2:    #a0b4d0;
+  --text3:    #5a7498;
+  --border:   rgba(255,255,255,0.06);
+  --border2:  rgba(255,255,255,0.1);
+  --glow-primary: rgba(93,165,245,0.15);
+  --glow-teal: rgba(52,213,168,0.12);
+  --nav-w: 230px;
+  --header-h: 54px;
+}
+
+/* ─── LIGHT MODE OVERRIDES ─── */
+html.light {
+  --bg:       #e8f4fd;
+  --bg2:      #ffffff;
+  --bg3:      #ffffff;
+  --bg4:      #f0f8ff;
+  --bg5:      #daeefa;
+  --bg6:      #c0e2f5;
+  --primary:  #00aeef;
+  --primary2: #0092cc;
+  --teal:     #00b894;
+  --teal2:    #009678;
+  --amber:    #d97706;
+  --red:      #dc2626;
+  --red2:     #dc2626;
+  --purple:   #7c3aed;
+  --text:     #0d2a45;
+  --text2:    #2d5a7a;
+  --text3:    #6b9ab8;
+  --border:   rgba(0,174,239,0.12);
+  --border2:  rgba(0,174,239,0.2);
+}
+
+html.light .logo-title { color: #0d2a45; }
+html.light .logo-sub { color: rgba(0,174,239,0.6); }
+html.light .logo-mark { box-shadow: 0 0 16px rgba(0,174,239,0.25); }
+html.light .nav-item:hover { background: rgba(0,174,239,0.06); }
+html.light .nav-item.active { background: rgba(0,174,239,0.1); border-color: rgba(0,174,239,0.2); }
+html.light aside { background: #ffffff; border-right: 1px solid rgba(0,174,239,0.15); }
+html.light .user-avatar { background: linear-gradient(135deg, #d0e8f8, #b8d8f4); border-color: rgba(0,174,239,0.25); }
+html.light header { background: #ffffff; border-bottom: 1px solid rgba(0,174,239,0.15); }
+html.light .icon-btn { border-color: rgba(0,174,239,0.18); }
+html.light .icon-btn:hover { background: #e8f4fd; }
+html.light .head-avatar { background: linear-gradient(135deg, #d0e8f8, #b8d8f4); border-color: rgba(0,174,239,0.25); }
+html.light .notif-dot { border-color: #ffffff; }
+html.light .rel-card { border-color: rgba(0,174,239,0.15); box-shadow: 0 1px 6px rgba(0,174,239,0.08), 0 1px 2px rgba(0,0,0,0.04); background: #ffffff; }
+html.light .rel-card:hover { box-shadow: 0 8px 24px rgba(0,174,239,0.15); }
+html.light .panel { border-color: rgba(0,174,239,0.15); background: #ffffff; }
+html.light .panel-header { background: #f0f8ff; border-bottom: 1px solid rgba(0,174,239,0.15); }
+html.light .action-item:hover { background: #f7fcff; }
+html.light .health-card { border-color: rgba(0,174,239,0.15); background: #ffffff; }
+html.light .quick-item:hover { background: #f7fcff; }
+html.light .story-row { background: #ffffff; }
+html.light .story-row:hover { background: #f7fcff; }
+html.light .app-row { background: #fafcff; border-bottom: 1px solid rgba(0,174,239,0.08); }
+html.light .stories-wrap { border-color: rgba(0,174,239,0.15); background: #ffffff; }
+html.light .tbl-head { background: #f0f8ff; border-color: rgba(0,174,239,0.15); }
+html.light .story-group { border-color: rgba(0,174,239,0.12); }
+html.light .apps-wrap { border-top-color: rgba(0,174,239,0.12); }
+html.light .search-wrap input { background: #ffffff; border-color: rgba(0,174,239,0.2); color: #0d2a45; }
+html.light .search-wrap input:focus { border-color: rgba(0,174,239,0.5); }
+html.light .sort-sel { background: #ffffff; border-color: rgba(0,174,239,0.2); color: #2d5a7a; }
+html.light .bento-card { border-color: rgba(0,174,239,0.15); background: #ffffff; }
+html.light .conflict-item { background: #f0f8ff; }
+html.light .timeline-widget { border-color: rgba(0,174,239,0.15); background: #ffffff; }
+html.light .tl-dot { background: #ffffff; }
+html.light .env-summary { background: rgba(0,174,239,0.06); border-color: rgba(0,174,239,0.2); }
+html.light .env-divider { background: rgba(0,174,239,0.2); }
+html.light .rel-id-tag { background: #f0f8ff; border-color: rgba(0,174,239,0.2); color: #6b9ab8; }
+html.light .dq-stat { border-color: rgba(0,174,239,0.15); background: #ffffff; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+html.light .queue-table { border-color: rgba(0,174,239,0.15); background: #ffffff; }
+html.light .qt-head { background: #f0f8ff; border-color: rgba(0,174,239,0.15); }
+html.light .qt-row { border-color: rgba(0,174,239,0.1); }
+html.light .qt-row:hover { background: #f7fcff; }
+html.light .qt-app-icon { background: rgba(0,174,239,0.08); }
+html.light .windows-card { background: #ffffff; border-color: rgba(0,174,239,0.15); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+html.light .window-item { border-left-color: rgba(0,174,239,0.2); }
+html.light .window-item::before { border-color: #ffffff; }
+html.light .window-countdown { background: #f0f8ff; }
+html.light .emergency-card { border-color: rgba(0,174,239,0.2); }
+html.light .btn-ghost { background: #f0f8ff; color: #2d5a7a; border-color: rgba(0,174,239,0.25); }
+html.light .btn-ghost:hover { background: #daeefa; color: #0d2a45; }
+html.light .btn-teal { background: rgba(0,184,148,0.1); border-color: rgba(0,184,148,0.3); }
+html.light .btn-red { background: rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.2); }
+html.light .chip-teal  { background: rgba(0,184,148,0.1); border-color: rgba(0,184,148,0.3); }
+html.light .chip-blue  { background: rgba(0,174,239,0.1); border-color: rgba(0,174,239,0.3); }
+html.light .chip-red   { background: rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.2); }
+html.light .chip-gray  { background: rgba(107,154,184,0.1); border-color: rgba(107,154,184,0.25); }
+html.light .chip-amber { background: rgba(217,119,6,0.1); border-color: rgba(217,119,6,0.25); }
+html.light .chip-purple{ background: rgba(124,58,237,0.08); border-color: rgba(124,58,237,0.2); }
+html.light ::-webkit-scrollbar-thumb { background: #b8d8f4; }
+html.light ::-webkit-scrollbar-thumb:hover { background: #a0c8ec; }
+html.light .prog-bar { background: #e8f4fd; }
+html.light .nav-badge { background: #dc2626; }
+
+/* ─── THEME TOGGLE BUTTON ─── */
+.theme-toggle {
+  width: 56px; height: 28px; border-radius: 20px;
+  background: var(--bg5); border: 1px solid var(--border2);
+  cursor: pointer; position: relative;
+  transition: background 0.3s, border-color 0.3s;
+  flex-shrink: 0; padding: 0;
+}
+html.light .theme-toggle { background: rgba(0,174,239,0.15); border-color: rgba(0,174,239,0.3); }
+.theme-toggle-thumb {
+  position: absolute; top: 3px; left: 3px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--primary);
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; line-height: 1;
+}
+html.light .theme-toggle-thumb { transform: translateX(28px); }
+.theme-toggle-icon-moon { display: block; }
+.theme-toggle-icon-sun  { display: none; }
+html.light .theme-toggle-icon-moon { display: none; }
+html.light .theme-toggle-icon-sun  { display: block; }
+
+html, body { height: 100%; overflow: hidden; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: background 0.25s, color 0.25s;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--bg5); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--bg6); }
+
+/* ─── LAYOUT ─── */
+.shell { display: flex; height: 100vh; }
+
+/* ─── SIDEBAR ─── */
+aside {
+  width: var(--nav-w);
+  min-width: var(--nav-w);
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 20;
+}
+
+.logo-wrap {
+  padding: 20px 18px 22px;
+  border-bottom: 1px solid var(--border);
+}
+.logo-mark {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--primary), var(--primary2));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 10px;
+  box-shadow: 0 0 20px rgba(93,165,245,0.3);
+}
+.logo-mark svg { width: 18px; height: 18px; color: #fff; }
+.logo-title { font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 800; color: #f0f6ff; }
+.logo-sub { font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(93,165,245,0.5); font-weight: 700; margin-top: 1px; }
+
+nav { padding: 10px 8px; flex: 1; }
+.nav-section-label {
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--text3); font-weight: 700; padding: 10px 10px 4px;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: 8px;
+  font-size: 12px; font-weight: 600; color: var(--text3);
+  cursor: pointer; transition: all 0.15s;
+  text-decoration: none; position: relative;
+  margin-bottom: 2px;
+  border: 1px solid transparent;
+  letter-spacing: 0.01em;
+}
+.nav-item svg { width: 15px; height: 15px; flex-shrink: 0; }
+.nav-item:hover { color: var(--text2); background: rgba(255,255,255,0.03); }
+.nav-item.active {
+  color: var(--primary);
+  background: rgba(93,165,245,0.1);
+  border-color: rgba(93,165,245,0.15);
+}
+.nav-item.active::before {
+  content: '';
+  position: absolute; left: 0; top: 25%; bottom: 25%;
+  width: 3px; background: var(--primary);
+  border-radius: 0 4px 4px 0; left: -8px;
+}
+.nav-badge {
+  margin-left: auto; background: var(--red2);
+  color: white; font-size: 9px; font-weight: 700;
+  padding: 1px 6px; border-radius: 20px;
+}
+
+.user-footer {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.user-avatar {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--bg5), var(--bg6));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; color: var(--primary);
+  border: 1px solid rgba(93,165,245,0.2);
+  flex-shrink: 0;
+}
+.user-name { font-size: 12px; font-weight: 700; color: var(--text); }
+.user-email { font-size: 10px; color: var(--text3); margin-top: 1px; }
+
+/* ─── MAIN AREA ─── */
+.main { flex: 1; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+
+header {
+  height: var(--header-h);
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+.header-left { display: flex; align-items: center; gap: 20px; }
+.header-title { font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 900; color: var(--primary); }
+
+.release-tabs { display: flex; gap: 2px; }
+.rtab {
+  padding: 5px 14px; font-size: 12px; font-weight: 600;
+  background: none; border: none; color: var(--text3);
+  cursor: pointer; transition: all 0.15s;
+  border-bottom: 2px solid transparent;
+  font-family: 'DM Sans', sans-serif;
+}
+.rtab:hover { color: var(--text2); }
+.rtab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+.header-right { display: flex; align-items: center; gap: 10px; }
+.icon-btn {
+  width: 34px; height: 34px; border-radius: 8px;
+  background: none; border: 1px solid var(--border);
+  color: var(--text3); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s; position: relative;
+}
+.icon-btn:hover { background: var(--bg3); color: var(--text2); }
+.icon-btn svg { width: 15px; height: 15px; }
+.notif-dot {
+  position: absolute; top: 7px; right: 7px;
+  width: 6px; height: 6px;
+  background: var(--red2); border-radius: 50%;
+  border: 2px solid var(--bg2);
+}
+.head-avatar {
+  width: 30px; height: 30px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--bg5), var(--bg6));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800; color: var(--primary);
+  border: 1px solid rgba(93,165,245,0.2);
+  cursor: pointer;
+}
+
+/* ─── PAGES ─── */
+.page { flex: 1; overflow-y: auto; padding: 24px; display: none; }
+.page.active { display: block; }
+
+/* ─── BUTTONS ─── */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 7px;
+  font-size: 11px; font-weight: 700; cursor: pointer;
+  border: none; transition: all 0.15s; letter-spacing: 0.02em;
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary2));
+  color: white; box-shadow: 0 2px 12px rgba(93,165,245,0.25);
+}
+.btn-primary:hover { box-shadow: 0 4px 20px rgba(93,165,245,0.4); transform: translateY(-1px); }
+.btn-ghost { background: var(--bg4); color: var(--text2); border: 1px solid var(--border2); }
+.btn-ghost:hover { background: var(--bg5); color: var(--text); }
+.btn-teal { background: rgba(52,213,168,0.15); color: var(--teal); border: 1px solid rgba(52,213,168,0.25); }
+.btn-teal:hover { background: rgba(52,213,168,0.25); }
+.btn-red { background: rgba(248,113,113,0.12); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
+.btn-sm { padding: 4px 10px; font-size: 10px; }
+.btn svg { width: 12px; height: 12px; }
+
+/* ─── STATUS CHIPS ─── */
+.chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 9px; font-weight: 700; padding: 3px 8px;
+  border-radius: 20px; text-transform: uppercase; letter-spacing: 0.06em;
+  white-space: nowrap; border: 1px solid;
+}
+.chip-teal  { background: rgba(52,213,168,0.1); color: var(--teal); border-color: rgba(52,213,168,0.25); }
+.chip-blue  { background: rgba(93,165,245,0.1); color: var(--primary); border-color: rgba(93,165,245,0.25); }
+.chip-red   { background: rgba(248,113,113,0.1); color: var(--red); border-color: rgba(248,113,113,0.2); }
+.chip-gray  { background: rgba(160,180,208,0.08); color: var(--text3); border-color: rgba(160,180,208,0.15); }
+.chip-amber { background: rgba(240,180,41,0.1); color: var(--amber); border-color: rgba(240,180,41,0.2); }
+.chip-purple{ background: rgba(167,139,250,0.1); color: var(--purple); border-color: rgba(167,139,250,0.2); }
+.chip-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+/* ─── PANEL / CARD ─── */
+.panel {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.panel-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--bg4);
+  border-bottom: 1px solid var(--border);
+}
+.panel-header h3 { font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.panel-header h3 svg { width: 14px; height: 14px; color: var(--primary); }
+
+/* ─── AVATAR ─── */
+.avatar {
+  width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 800;
+  border: 1px solid var(--border2);
+  flex-shrink: 0;
+}
+
+/* ─── PAGE HEADER ─── */
+.page-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 24px; font-weight: 900; color: var(--text);
+}
+.page-sub { font-size: 12px; color: var(--text3); margin-top: 3px; }
+
+/* ══════════════════════════════════════
+   DASHBOARD
+══════════════════════════════════════ */
+.dash-hero { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 18px; }
+.releases-row { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; margin-bottom: 24px; }
+.rel-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px;
+  border-top: 3px solid;
+  cursor: pointer; transition: all 0.2s;
+  position: relative; overflow: hidden;
+}
+.rel-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+.rel-card-id { font-family: 'Manrope', sans-serif; font-size: 20px; font-weight: 900; margin-bottom: 14px; }
+.rel-row { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px; }
+.rel-row .lbl { color: var(--text3); }
+.rel-row .val { font-weight: 700; }
+.prog-wrap { margin: 10px 0 6px; }
+.prog-bar { height: 3px; background: var(--bg); border-radius: 3px; overflow: hidden; }
+.prog-fill { height: 100%; border-radius: 3px; }
+.prog-labels { display: flex; justify-content: space-between; font-size: 9px; font-weight: 700; margin-bottom: 4px; }
+.rel-status { display: flex; align-items: center; gap: 6px; margin-top: 12px; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; }
+.status-text { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+.urgent-tag {
+  position: absolute; top: 6px; right: -16px;
+  background: var(--red2); color: white; font-size: 8px; font-weight: 700;
+  padding: 2px 22px; transform: rotate(30deg); letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+.dash-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+.action-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px; border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.action-item:last-child { border-bottom: none; }
+.action-item:hover { background: rgba(255,255,255,0.015); }
+.action-icon {
+  width: 34px; height: 34px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 15px;
+}
+.action-info { flex: 1; min-width: 0; }
+.action-title { font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.action-desc { font-size: 10px; color: var(--text3); margin-top: 2px; }
+.action-btns { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+.dismiss-btn { background: none; border: none; color: var(--text3); cursor: pointer; padding: 4px; border-radius: 4px; line-height: 1; }
+.dismiss-btn:hover { color: var(--red); }
+
+.health-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.health-card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px;
+}
+.health-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+.health-label { font-size: 9px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 1px; }
+.health-val { font-family: 'Manrope', sans-serif; font-size: 22px; font-weight: 900; }
+.health-sub { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+.spark-bars { display: flex; align-items: flex-end; gap: 3px; height: 32px; }
+.spark-bar { width: 4px; border-radius: 2px 2px 0 0; }
+
+.quick-panel { display: flex; flex-direction: column; gap: 0; }
+.quick-item {
+  display: flex; align-items: center; padding: 14px 18px;
+  border-bottom: 1px solid var(--border); gap: 12px;
+  cursor: pointer; transition: all 0.15s;
+  border-left: 3px solid transparent;
+}
+.quick-item:last-child { border-bottom: none; }
+.quick-item:hover { background: rgba(255,255,255,0.02); }
+.quick-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 16px;
+}
+.quick-title { font-size: 12px; font-weight: 700; }
+.quick-sub { font-size: 10px; color: var(--text3); margin-top: 1px; }
+.quick-arrow { margin-left: auto; color: var(--text3); }
+.quick-arrow svg { width: 12px; height: 12px; }
+
+/* ══════════════════════════════════════
+   RELEASE MANAGEMENT
+══════════════════════════════════════ */
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text3); font-weight: 700; margin-bottom: 6px; }
+.breadcrumb .curr { color: var(--primary); }
+.breadcrumb svg { width: 10px; height: 10px; }
+
+.rel-page-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; gap: 16px; }
+.rel-id-tag {
+  font-size: 10px; font-weight: 500; background: var(--bg4);
+  padding: 3px 8px; border-radius: 4px; color: var(--text3);
+  font-family: 'JetBrains Mono', monospace; border: 1px solid var(--border);
+}
+
+.env-summary {
+  display: flex; align-items: center; gap: 20px;
+  background: rgba(58,74,95,0.15);
+  border: 1px solid var(--border2);
+  border-radius: 10px; padding: 14px 22px;
+  flex-shrink: 0;
+}
+.env-stat .es-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
+.env-stat .es-val { font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 900; }
+.env-divider { width: 1px; height: 38px; background: var(--border2); }
+
+.tbl-filters { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.search-wrap { position: relative; flex: 1; max-width: 360px; }
+.search-wrap input {
+  width: 100%; background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 7px; padding: 8px 12px 8px 34px;
+  font-size: 12px; color: var(--text); outline: none; font-family: 'DM Sans', sans-serif;
+  transition: border-color 0.15s;
+}
+.search-wrap input:focus { border-color: rgba(93,165,245,0.4); }
+.search-wrap input::placeholder { color: var(--text3); }
+.search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text3); }
+.search-icon svg { width: 14px; height: 14px; }
+.sort-sel {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 7px; padding: 7px 12px; font-size: 11px;
+  color: var(--text2); outline: none; font-family: 'DM Sans', sans-serif; cursor: pointer;
+}
+
+.tbl-head {
+  display: grid; grid-template-columns: 5fr 2fr 2fr 3fr;
+  gap: 12px; padding: 10px 18px;
+  background: var(--bg4); border: 1px solid var(--border);
+  border-radius: 8px 8px 0 0;
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--text3); margin-bottom: -1px;
+}
+.tbl-head div:last-child { text-align: right; }
+
+.stories-wrap { border: 1px solid var(--border); border-radius: 0 0 8px 8px; overflow: hidden; }
+
+.story-group { border-bottom: 1px solid var(--border); }
+.story-group:last-child { border-bottom: none; }
+
+.story-row {
+  display: grid; grid-template-columns: 5fr 2fr 2fr 3fr;
+  gap: 12px; padding: 14px 18px;
+  background: var(--bg3); align-items: center;
+  cursor: pointer; transition: background 0.15s;
+  border-left: 3px solid;
+}
+.story-row:hover { background: var(--bg4); }
+
+.story-expand { transition: transform 0.2s; display: inline-flex; margin-right: 8px; }
+.story-expand svg { width: 12px; height: 12px; color: var(--text3); }
+.story-expand.open { transform: rotate(90deg); }
+.story-name-text { font-size: 12px; font-weight: 700; }
+.story-meta { font-size: 9px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
+
+.owner-cell { display: flex; align-items: center; gap: 8px; }
+.owner-info .owner-name { font-size: 11px; font-weight: 700; }
+.owner-info .owner-time { font-size: 9px; color: var(--text3); margin-top: 1px; }
+
+.story-actions { display: flex; justify-content: flex-end; gap: 6px; align-items: center; }
+.more-btn { background: none; border: none; color: var(--text3); cursor: pointer; padding: 4px; font-size: 16px; line-height: 1; }
+.more-btn:hover { color: var(--text2); }
+
+.apps-wrap { display: none; border-top: 1px solid var(--border); }
+.apps-wrap.open { display: block; }
+
+.app-row {
+  display: grid; grid-template-columns: 5fr 2fr 2fr 3fr;
+  gap: 12px; padding: 10px 18px 10px 36px;
+  background: rgba(8,15,31,0.4);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  align-items: center;
+  border-left: 3px solid transparent;
+}
+.app-row:last-child { border-bottom: none; }
+.app-name-text { font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em; }
+.app-branch { font-size: 9px; color: var(--primary); font-family: 'JetBrains Mono', monospace; margin-top: 3px; display: flex; align-items: center; gap: 4px; }
+.app-branch svg { width: 10px; height: 10px; }
+
+/* bento */
+.bento-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 20px; }
+.bento-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+.bento-lbl { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text3); display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.bento-lbl svg { width: 14px; height: 14px; }
+.bento-big { font-family: 'Manrope', sans-serif; font-size: 32px; font-weight: 900; }
+
+.conflict-item { background: var(--bg4); border-radius: 6px; padding: 10px 12px; border-left: 2px solid; margin-bottom: 8px; }
+.conflict-title { font-size: 11px; font-weight: 700; }
+.conflict-sub { font-size: 9px; color: var(--text3); margin-top: 2px; }
+
+/* timeline */
+.timeline-widget { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-top: 14px; }
+.tl-steps { display: grid; grid-template-columns: repeat(6,1fr); gap: 8px; margin-top: 20px; position: relative; }
+.tl-line-bg { position: absolute; left: 10%; right: 10%; top: 11px; height: 1px; background: var(--border2); z-index: 0; }
+.tl-step { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; position: relative; z-index: 1; }
+.tl-dot { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--bg3); border: 2px solid; }
+.tl-dot svg { width: 12px; height: 12px; }
+.tl-step-name { font-size: 10px; font-weight: 700; }
+.tl-step-status { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+.tl-step-date { font-size: 8px; color: var(--text3); }
+
+/* ══════════════════════════════════════
+   DEPLOYMENT QUEUE
+══════════════════════════════════════ */
+.dq-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 22px; }
+.dq-stat {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px; position: relative; overflow: hidden;
+}
+.dq-stat.highlight { border-bottom: 3px solid var(--primary); }
+.dq-stat-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); margin-bottom: 6px; }
+.dq-stat-value { font-family: 'Manrope', sans-serif; font-size: 26px; font-weight: 900; font-variant-numeric: tabular-nums; }
+.dq-stat-icon { position: absolute; right: -6px; bottom: -6px; font-size: 48px; opacity: 0.07; }
+
+.dq-layout { display: grid; grid-template-columns: 1fr 260px; gap: 16px; }
+
+.queue-table { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.qt-head {
+  display: grid; grid-template-columns: 2fr 2.5fr 80px 120px 130px;
+  gap: 8px; padding: 11px 20px;
+  background: var(--bg4); border-bottom: 1px solid var(--border);
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text3);
+}
+.qt-head div:last-child { text-align: right; }
+.qt-row {
+  display: grid; grid-template-columns: 2fr 2.5fr 80px 120px 130px;
+  gap: 8px; padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  align-items: center; transition: background 0.15s;
+}
+.qt-row:last-child { border-bottom: none; }
+.qt-row:hover { background: rgba(255,255,255,0.02); }
+.qt-app-icon { width: 32px; height: 32px; border-radius: 7px; background: rgba(93,165,245,0.08); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+.qt-app-name { font-size: 12px; font-weight: 700; }
+.qt-app-cid { font-size: 9px; color: var(--text3); font-family: 'JetBrains Mono', monospace; }
+.qt-branch-text { font-size: 10px; font-family: 'JetBrains Mono', monospace; color: var(--text2); display: flex; align-items: center; gap: 5px; }
+.qt-branch-text svg { width: 10px; height: 10px; color: var(--text3); flex-shrink: 0; }
+.env-tag {
+  display: inline-block; font-size: 9px; font-weight: 800;
+  padding: 3px 8px; border-radius: 5px; text-transform: uppercase; letter-spacing: 0.06em;
+}
+.env-sit { background: rgba(93,165,245,0.12); color: var(--primary); border: 1px solid rgba(93,165,245,0.25); }
+.env-nft { background: rgba(52,213,168,0.1); color: var(--teal); border: 1px solid rgba(52,213,168,0.2); }
+.qt-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: var(--teal); }
+.pulse-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(0.8); } }
+
+.dq-sidebar { display: flex; flex-direction: column; gap: 14px; }
+.windows-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; border-left: 3px solid var(--primary); padding: 18px; }
+.wc-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--primary); margin-bottom: 16px; }
+.window-item { padding-left: 16px; border-left: 1px solid rgba(255,255,255,0.1); position: relative; margin-bottom: 18px; }
+.window-item:last-child { margin-bottom: 0; }
+.window-item::before { content: ''; position: absolute; left: -5px; top: 3px; width: 9px; height: 9px; border-radius: 50%; border: 3px solid var(--bg); }
+.window-item.wi-active::before { background: var(--primary); }
+.window-item.wi-dim::before { background: var(--text3); }
+.window-title { font-size: 11px; font-weight: 700; margin-bottom: 2px; }
+.window-time { font-size: 10px; color: var(--text3); }
+.window-countdown { font-size: 9px; font-family: 'JetBrains Mono', monospace; background: var(--bg4); padding: 4px 8px; border-radius: 5px; color: var(--primary); display: inline-block; margin-top: 6px; }
+.window-countdown.wc-gray { color: var(--text3); }
+
+.emergency-card {
+  border: 2px dashed rgba(255,255,255,0.1);
+  border-radius: 10px; padding: 20px;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; margin-top: 14px;
+}
+.emergency-card svg { color: var(--text3); width: 28px; height: 28px; margin-bottom: 8px; }
+.emergency-card p { font-size: 11px; color: var(--text3); margin-bottom: 12px; }
+
+/* ─── PULSE ANIMATION on env summary ─── */
+@keyframes pulseGrow { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.6; transform:scale(0.85); } }
+.pulse-status { animation: pulseGrow 2s infinite; }
+
+/* ─── FADE IN ─── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.page.active { animation: fadeUp 0.25s ease; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <!-- ─── SIDEBAR ─── -->
+  <aside>
+    <div class="logo-wrap">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+      </div>
+      <div class="logo-title">Release Hub</div>
+      <div class="logo-sub">Mission Control</div>
+    </div>
+    <nav>
+      <div class="nav-section-label">Navigation</div>
+      <a class="nav-item active" id="nav-dashboard" onclick="showPage('dashboard')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" id="nav-release" onclick="showPage('release')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="6" y1="8" x2="6" y2="16"/><line x1="18" y1="8" x2="18" y2="16"/></svg>
+        Release Management
+        <span class="nav-badge">3</span>
+      </a>
+      <a class="nav-item" id="nav-queue" onclick="showPage('queue')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        Deployment Queue
+      </a>
+      <div class="nav-section-label" style="margin-top:10px;">System</div>
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="user-footer">
+      <div class="user-avatar">LA</div>
+      <div><div class="user-name">Lead Architect</div><div class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0a676b797e6f784a696567676b646e246b786962">[email&#160;protected]</a></div></div>
+    </div>
+  </aside>
+
+  <!-- ─── MAIN ─── -->
+  <div class="main">
+    <header>
+      <div class="header-left">
+        <span class="header-title">Active Releases</span>
+        <div class="release-tabs">
+          <button class="rtab" onclick="switchRelease('26.04',this)">26.04</button>
+          <button class="rtab active" id="rtab-2605" onclick="switchRelease('26.05',this)">26.05</button>
+          <button class="rtab" onclick="switchRelease('26.06',this)">26.06</button>
+          <button class="rtab" onclick="switchRelease('adhoc',this)">Ad hoc</button>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">
+          <div class="theme-toggle-thumb">
+            <span class="theme-toggle-icon-moon">🌙</span>
+            <span class="theme-toggle-icon-sun">☀️</span>
+          </div>
+        </button>
+        <button class="icon-btn" title="Notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="notif-dot"></span>
+        </button>
+        <button class="icon-btn" title="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+        <div class="head-avatar">AT</div>
+      </div>
+    </header>
+
+    <!-- ══ DASHBOARD ══ -->
+    <div class="page active" id="page-dashboard"></div>
+
+    <!-- ══ RELEASE MANAGEMENT ══ -->
+    <div class="page" id="page-release"></div>
+
+    <!-- ══ DEPLOYMENT QUEUE ══ -->
+    <div class="page" id="page-queue"></div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ═══════════════════════ MOCK DATA ═══════════════════════ */
+const MOCK = {
+  releases: [
+    { id:'26.04', stories:42, subtasks:156, progress:92, statusText:'SIT: Deployed',     statusColor:'var(--teal)',    borderColor:'var(--teal)',    dotAnim:false },
+    { id:'26.05', stories:28, subtasks:89,  progress:45, statusText:'SIT: In Progress',  statusColor:'var(--primary)', borderColor:'var(--primary)', dotAnim:true  },
+    { id:'26.06', stories:15, subtasks:42,  progress:0,  statusText:'SIT: Queued',       statusColor:'var(--text3)',   borderColor:'var(--text3)',   dotAnim:false },
+    { id:'26.07', stories:0,  subtasks:0,   progress:0,  statusText:'Staging',           statusColor:'var(--text3)',   borderColor:'var(--text3)',   dotAnim:false, dim:true },
+    { id:'Ad hoc',stories:3, subtasks:0,   progress:100, statusText:'Action Required',  statusColor:'var(--red)',     borderColor:'var(--red)',     dotAnim:false, urgent:true }
+  ],
+
+  actions: [
+    { icon:'⌥', iconBg:'rgba(93,165,245,0.12)', iconColor:'var(--primary)',  title:'PR #892: Security Patch for Auth Flow',       desc:'Merge to <span style="color:var(--primary);font-family:JetBrains Mono,monospace;">develop</span> · Requested by j.doe', btnLabel:'Approve',     btnClass:'btn-teal btn-sm' },
+    { icon:'🚀', iconBg:'rgba(52,213,168,0.1)',  iconColor:'var(--teal)',     title:'SIT Deployment Approval: v26.05.RC1',         desc:'Environment: <span style="color:var(--teal);font-family:JetBrains Mono,monospace;">SIT-B</span> · Readiness: 100%',  btnLabel:'Execute',     btnClass:'btn-primary btn-sm' },
+    { icon:'📦', iconBg:'rgba(160,180,208,0.08)',iconColor:'var(--text3)',    title:'Resource Tagging: Release 26.04',              desc:'Missing metadata for 4 sub-tasks',                                                                                      btnLabel:'Fix Now',     btnClass:'btn-ghost btn-sm' },
+    { icon:'⚠️', iconBg:'rgba(248,113,113,0.1)', iconColor:'var(--red)',      title:'Hotfix Required: PAYMENT-API timeout',         desc:'Reported by monitoring · P1 severity',                                                                                   btnLabel:'Review',      btnClass:'btn-red btn-sm' }
+  ],
+
+  health: [
+    { title:'CIT Cluster',  sub:'Continuous Integration', val:'99.98%', label:'OPTIMAL PERFORMANCE', labelColor:'var(--teal)',    bars:[30,55,40,70,50,80,45,90], barColor:'var(--teal)' },
+    { title:'SIT Cluster',  sub:'System Integration',     val:'84.2%',  label:'HEAVY LOAD DETECTED', labelColor:'var(--primary)', bars:[75,90,65,80,90,78,85,82], barColor:'var(--primary)' }
+  ],
+
+  quickAccess: [
+    { icon:'⎇', title:'Branch Tracker',         sub:'Manage 14 active branches',  bg:'rgba(93,165,245,0.08)',   color:'var(--primary)' },
+    { icon:'⟳', title:'Deployment Pipeline',    sub:'Track build artifacts',       bg:'rgba(52,213,168,0.08)',   color:'var(--teal)' },
+    { icon:'📄', title:'Release Notes',          sub:'Auto-generate docs',          bg:'rgba(167,139,250,0.08)', color:'var(--purple)' },
+    { icon:'📊', title:'QA Analytics',           sub:'View test reports',           bg:'rgba(240,180,41,0.08)',  color:'var(--amber)' }
+  ],
+
+  stories: [
+    {
+      id:'iportal-421', name:'Unified Authentication Shield',
+      owner:'Alex Thorne', initials:'AT', avatarBg:'rgba(93,165,245,0.15)', avatarColor:'var(--primary)',
+      time:'2 hours ago', chip:'chip-teal', chipLabel:'CIT: Sanity Pass', borderColor:'var(--primary)',
+      apps: [
+        { name:'auth-service',  branch:'feature/iportal-421-auth-fix',    owner:'Marcus V.', initials:'MV', avBg:'rgba(52,213,168,0.12)', avColor:'var(--teal)',    chip:'chip-teal', chipLabel:'CIT Success',     actionLabel:'Request SIT', actionClass:'btn-ghost btn-sm' },
+        { name:'frontend-web',  branch:'bugfix/iportal-5232-redirect',     owner:'Alex T.',   initials:'AT', avBg:'rgba(93,165,245,0.12)', avColor:'var(--primary)', chip:'chip-blue', chipLabel:'SIT Requested',   actionLabel:'View MR',     actionClass:'btn-primary btn-sm' },
+        { name:'user-profile',  branch:'feature/iportal-421-profile-sync', owner:'Sara K.',   initials:'SK', avBg:'rgba(167,139,250,0.12)',avColor:'var(--purple)',  chip:'chip-teal', chipLabel:'CIT Success',     actionLabel:'Request SIT', actionClass:'btn-ghost btn-sm' }
+      ]
+    },
+    {
+      id:'iportal-425', name:'Multi-region Database Sharding',
+      owner:'Elena Rossi', initials:'ER', avatarBg:'rgba(248,113,113,0.12)', avatarColor:'var(--red)',
+      time:'5 mins ago', chip:'chip-red', chipLabel:'Testing… (3 Failures)', borderColor:'var(--red)',
+      locked: true,
+      apps: [
+        { name:'db-shard-svc',  branch:'feature/iportal-425-sharding',    owner:'Elena R.',  initials:'ER', avBg:'rgba(248,113,113,0.12)', avColor:'var(--red)',     chip:'chip-red',  chipLabel:'CIT Failed',      actionLabel:'SIT Locked',  actionClass:'btn-ghost btn-sm', disabled:true },
+        { name:'api-gateway',   branch:'feature/iportal-425-routing',      owner:'Liam C.',   initials:'LC', avBg:'rgba(240,180,41,0.12)', avColor:'var(--amber)',   chip:'chip-amber',chipLabel:'Testing',         actionLabel:'SIT Locked',  actionClass:'btn-ghost btn-sm', disabled:true }
+      ]
+    },
+    {
+      id:'iportal-430', name:'Real-time Notifications Engine',
+      owner:'Sam Park', initials:'SP', avatarBg:'rgba(167,139,250,0.12)', avatarColor:'var(--purple)',
+      time:'1 day ago', chip:'chip-blue', chipLabel:'SIT: In Progress', borderColor:'var(--teal)',
+      apps: [
+        { name:'notif-engine',  branch:'bugfix/retry-exponential-backoff', owner:'Sam P.',    initials:'SP', avBg:'rgba(167,139,250,0.12)', avColor:'var(--purple)', chip:'chip-teal', chipLabel:'SIT Deployed',    actionLabel:'View Logs',   actionClass:'btn-ghost btn-sm' },
+        { name:'push-service',  branch:'feature/iportal-430-push',         owner:'Nina W.',   initials:'NW', avBg:'rgba(52,213,168,0.12)', avColor:'var(--teal)',    chip:'chip-blue', chipLabel:'SIT Requested',   actionLabel:'View MR',     actionClass:'btn-ghost btn-sm' }
+      ]
+    },
+    {
+      id:'iportal-418', name:'Payment Gateway Overhaul',
+      owner:'Priya Nair', initials:'PN', avatarBg:'rgba(52,213,168,0.12)', avatarColor:'var(--teal)',
+      time:'3 days ago', chip:'chip-teal', chipLabel:'CIT: Sanity Pass', borderColor:'var(--teal)',
+      apps: [
+        { name:'payment-api',   branch:'release/v26.06-core',              owner:'Priya N.',  initials:'PN', avBg:'rgba(52,213,168,0.12)', avColor:'var(--teal)',    chip:'chip-teal', chipLabel:'CIT Success',     actionLabel:'Request SIT', actionClass:'btn-ghost btn-sm' },
+        { name:'billing-svc',   branch:'feature/iportal-418-billing',      owner:'Marcus V.', initials:'MV', avBg:'rgba(52,213,168,0.12)', avColor:'var(--teal)',    chip:'chip-teal', chipLabel:'CIT Success',     actionLabel:'Request SIT', actionClass:'btn-ghost btn-sm' },
+        { name:'reconciler',    branch:'feature/iportal-418-recon',        owner:'Dev Bot',   initials:'DB', avBg:'rgba(93,165,245,0.1)', avColor:'var(--primary)', chip:'chip-gray', chipLabel:'Awaiting Review', actionLabel:'Assign',      actionClass:'btn-ghost btn-sm' }
+      ]
+    }
+  ],
+
+  bento: {
+    health: { val:'94%', progress:94, sub:'+2% vs last release', desc:'System confidence is high. Zero P1 defects in SIT sync.' },
+    conflicts: [
+      { title:'Branch Conflict: iportal-425', sub:'Collision with main in api-auth.go', color:'var(--red)', resolved:false },
+      { title:'Resolved: iportal-421',        sub:'Conflict resolved by Liam Chen',     color:'var(--teal)', resolved:true  }
+    ],
+    window: { time:'Today, 4:00 PM', countdown:'In 2h 15m' }
+  },
+
+  timeline: [
+    { name:'Planning',    status:'Complete',    date:'Oct 10', done:true },
+    { name:'Development', status:'Complete',    date:'Oct 25', done:true },
+    { name:'SIT Testing', status:'In Progress', date:'Nov 15', active:true },
+    { name:'Branching',   status:'Upcoming',    date:'Nov 20' },
+    { name:'NFT Uplift',  status:'Upcoming',    date:'Nov 25' },
+    { name:'Production',  status:'Upcoming',    date:'Dec 10' }
+  ],
+
+  dqStats: [
+    { label:'Pending Requests', val:'14',      color:'var(--primary)', icon:'📋' },
+    { label:'Next SIT Window',  val:'02:14:55', color:'var(--text)',    icon:'⏰', highlight:true },
+    { label:'Next NFT Window',  val:'18:45:10', color:'var(--text)',    icon:'☁️' },
+    { label:'System Health',    val:'99.8%',   color:'var(--teal)',    icon:'⚡' }
+  ],
+
+  queue: [
+    { app:'AUTH-SERVICE',  cid:'99421-AX', branch:'feature/iportal-421-auth-fix',       env:'SIT', status:'Approved', icon:'🔐', statusColor:'var(--teal)' },
+    { app:'FRONTEND-WEB',  cid:'88214-FE', branch:'hotfix/css-regression-v2',            env:'NFT', status:'Approved', icon:'🌐', statusColor:'var(--teal)' },
+    { app:'PAYMENT-API',   cid:'77512-PY', branch:'release/v26.06-core',                 env:'SIT', status:'Approved', icon:'💳', statusColor:'var(--teal)' },
+    { app:'NOTIF-ENGINE',  cid:'44109-NT', branch:'bugfix/retry-exponential-backoff',    env:'SIT', status:'Approved', icon:'📡', statusColor:'var(--teal)' },
+    { app:'BILLING-SVC',   cid:'33821-BL', branch:'feature/iportal-418-billing',         env:'NFT', status:'Pending',  icon:'🧾', statusColor:'var(--amber)' },
+    { app:'RECONCILER',    cid:'22177-RC', branch:'feature/iportal-418-recon',           env:'SIT', status:'Pending',  icon:'🔄', statusColor:'var(--amber)' }
+  ],
+
+  windows: [
+    { title:'SIT Window — Alpha',  time:'14:00–16:00 UTC',    countdown:'Starts in 02:14:55', active:true },
+    { title:'NFT Load Testing',    time:'Tomorrow 08:00 UTC', countdown:'Queue Open',         active:false }
+  ]
+};
+
+/* ═══════════════════════ OPEN STORIES STATE ═══════════════════════ */
+const openStories = new Set(['iportal-421']);
+let searchQuery = '';
+
+/* ═══════════════════════ NAV ═══════════════════════ */
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+}
+
+function switchRelease(rel, btn) {
+  document.querySelectorAll('.rtab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (rel === '26.05') showPage('release');
+  else showPage('dashboard');
+}
+
+/* ═══════════════════════ SVG HELPERS ═══════════════════════ */
+const svg = (path, extra='') => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ${extra}>${path}</svg>`;
+const checkSvg  = svg('<polyline points="20 6 9 17 4 12"/>');
+const chevSvg   = svg('<polyline points="9 18 15 12 9 6"/>');
+const branchSvg = svg('<line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/>');
+const commitSvg = svg('<circle cx="12" cy="12" r="3"/><line x1="3" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="21" y2="12"/>');
+
+/* ═══════════════════════ DASHBOARD ═══════════════════════ */
+function renderDashboard() {
+  const el = document.getElementById('page-dashboard');
+  el.innerHTML = `
+    <div class="dash-hero">
+      <div>
+        <p style="font-size:9px;text-transform:uppercase;letter-spacing:0.18em;color:var(--primary);font-weight:700;margin-bottom:4px;">Telemetry</p>
+        <h2 class="page-title">Active Releases</h2>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost">${svg('<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>')} Filter</button>
+        <button class="btn btn-primary">${svg('<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>')} New Release</button>
+      </div>
+    </div>
+
+    <div class="releases-row">
+      ${MOCK.releases.map(r => `
+        <div class="rel-card" style="border-top-color:${r.borderColor};${r.dim?'opacity:0.55':''}" onclick="if('${r.id}'==='26.05'){switchRelease('26.05',document.getElementById('rtab-2605'));showPage('release');}">
+          ${r.urgent ? '<div class="urgent-tag">URGENT</div>' : ''}
+          <div class="rel-card-id" style="color:${r.borderColor}">${r.id}</div>
+          <div class="rel-row"><span class="lbl">Stories</span><span class="val">${r.stories||'--'}</span></div>
+          <div class="rel-row"><span class="lbl">Sub-tasks</span><span class="val">${r.subtasks||'--'}</span></div>
+          <div class="prog-wrap">
+            <div class="prog-labels"><span style="color:${r.borderColor}">QA Progress</span><span>${r.progress}%</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="width:${r.progress}%;background:${r.borderColor};"></div></div>
+          </div>
+          <div class="rel-status">
+            <span class="status-dot" style="background:${r.statusColor};${r.dotAnim?'animation:pulseGrow 2s infinite':''}"></span>
+            <span class="status-text" style="color:${r.statusColor};">${r.statusText}</span>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="dash-grid">
+      <div>
+        <div class="panel">
+          <div class="panel-header">
+            <h3>${svg('<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>')} Pending Actions</h3>
+            <span class="chip chip-blue"><span class="chip-dot"></span>12 tasks</span>
+          </div>
+          ${MOCK.actions.map((a,i) => `
+            <div class="action-item">
+              <div class="action-icon" style="background:${a.iconBg};font-size:15px;">${a.icon}</div>
+              <div class="action-info" style="margin:0 12px;">
+                <div class="action-title">${a.title}</div>
+                <div class="action-desc">${a.desc}</div>
+              </div>
+              <div class="action-btns">
+                <button class="dismiss-btn" onclick="this.closest('.action-item').remove()">✕</button>
+                <button class="btn ${a.btnClass}">${a.btnLabel}</button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="health-grid">
+          ${MOCK.health.map(h => `
+            <div class="health-card">
+              <div class="health-top">
+                <div>
+                  <div style="font-size:13px;font-weight:700;">${h.title}</div>
+                  <div class="health-label">${h.sub}</div>
+                </div>
+                <div style="width:10px;height:10px;border-radius:50%;background:${h.barColor};box-shadow:0 0 10px ${h.barColor};"></div>
+              </div>
+              <div class="health-val" style="color:var(--text)">${h.val}</div>
+              <div class="health-sub" style="color:${h.labelColor};margin:4px 0 10px;">${h.label}</div>
+              <div class="spark-bars">
+                ${h.bars.map(b => `<div class="spark-bar" style="height:${b}%;background:${h.barColor};opacity:${0.3+b/100*0.7};"></div>`).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header"><h3>${svg('<bookmark/>')} Quick Access</h3></div>
+        <div class="quick-panel">
+          ${MOCK.quickAccess.map(q => `
+            <div class="quick-item">
+              <div class="quick-icon" style="background:${q.bg};font-size:16px;">${q.icon}</div>
+              <div>
+                <div class="quick-title">${q.title}</div>
+                <div class="quick-sub">${q.sub}</div>
+              </div>
+              <div class="quick-arrow">${svg('<polyline points="9 18 15 12 9 6"/>')}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/* ═══════════════════════ RELEASE MANAGEMENT ═══════════════════════ */
+function renderRelease() {
+  const el = document.getElementById('page-release');
+  el.innerHTML = `
+    <div class="rel-page-top">
+      <div>
+        <div class="breadcrumb">
+          <span>Release Trains</span>
+          ${svg('<polyline points="9 18 15 12 9 6"/>')}
+          <span class="curr">Release 26.05</span>
+        </div>
+        <h2 class="page-title" style="display:flex;align-items:center;gap:12px;">
+          Release 26.05
+          <span class="rel-id-tag">#REL-2024-2605</span>
+        </h2>
+      </div>
+      <div class="env-summary">
+        <div class="env-stat">
+          <div class="es-label"><span class="status-dot" style="background:var(--teal);width:7px;height:7px;"></span> CIT Live</div>
+          <div class="es-val">14 Stories</div>
+        </div>
+        <div class="env-divider"></div>
+        <div class="env-stat">
+          <div class="es-label"><span class="status-dot pulse-status" style="background:var(--primary);width:7px;height:7px;"></span> SIT Sync</div>
+          <div class="es-val">09 / 14</div>
+        </div>
+        <button class="btn btn-ghost" style="margin-left:8px;">${svg('<polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-5"/>')} Refresh</button>
+      </div>
+    </div>
+
+    <div class="tbl-filters">
+      <div class="search-wrap">
+        <span class="search-icon">${svg('<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>')}</span>
+        <input type="text" id="story-search" placeholder="Search stories, PRs, or developers…" oninput="filterStories(this.value)"/>
+      </div>
+      <select class="sort-sel" id="story-sort" onchange="renderStories()">
+        <option value="recent">Recent Activity</option>
+        <option value="id">Story ID</option>
+        <option value="failures">Failures First</option>
+      </select>
+      <button class="btn btn-ghost btn-sm" onclick="openStories.clear();renderStories()">Collapse All</button>
+      <button class="btn btn-ghost btn-sm" onclick="MOCK.stories.forEach(s=>openStories.add(s.id));renderStories()">Expand All</button>
+    </div>
+
+    <div class="tbl-head">
+      <div>Identity &amp; Hierarchy / Applications</div>
+      <div>Owner &amp; Context</div>
+      <div style="text-align:center;">Env Status</div>
+      <div>Actions / Controls</div>
+    </div>
+    <div class="stories-wrap" id="stories-wrap"></div>
+
+    <div class="bento-grid">
+      <div class="bento-card">
+        <div class="bento-lbl"><span>Release Health</span>${svg('<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>','style="color:var(--primary)"')}</div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px;">
+          <div class="bento-big">${MOCK.bento.health.val}</div>
+          <span class="chip chip-teal">${MOCK.bento.health.sub}</span>
+        </div>
+        <div class="prog-bar" style="height:5px;margin-bottom:10px;"><div class="prog-fill" style="width:${MOCK.bento.health.progress}%;background:var(--primary);"></div></div>
+        <p style="font-size:10px;color:var(--text3);line-height:1.6;">${MOCK.bento.health.desc}</p>
+      </div>
+      <div class="bento-card">
+        <div class="bento-lbl" style="color:var(--text3);">Recent Conflicts ${svg('<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>','style="color:var(--red)"')}</div>
+        ${MOCK.bento.conflicts.map(c => `
+          <div class="conflict-item" style="border-left-color:${c.color};${c.resolved?'opacity:0.5':''}">
+            <div class="conflict-title">${c.title}</div>
+            <div class="conflict-sub">${c.sub}</div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="bento-card" style="display:flex;flex-direction:column;gap:12px;">
+        <div class="bento-lbl" style="color:var(--text3);">Deployment Window ${svg('<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>','style="color:var(--primary)"')}</div>
+        <div>
+          <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--primary);margin-bottom:4px;">Upcoming SIT Window</div>
+          <div style="font-family:Manrope,sans-serif;font-size:20px;font-weight:900;">${MOCK.bento.window.time}</div>
+          <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(93,165,245,0.1);padding:4px 12px;border-radius:20px;margin-top:10px;">
+            <span class="pulse-status" style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>
+            <span style="font-size:9px;font-weight:700;color:var(--primary);text-transform:uppercase;">${MOCK.bento.window.countdown}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-widget">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--text3);">Release Timeline 26.05</span>
+        ${svg('<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>','style="width:14px;height:14px;color:var(--primary)"')}
+      </div>
+      <div class="tl-steps" id="tl-steps"><div class="tl-line-bg"></div></div>
+    </div>
+  `;
+  renderStories();
+  renderTimeline();
+}
+
+function filterStories(q) { searchQuery = q.toLowerCase(); renderStories(); }
+
+function renderStories() {
+  const wrap = document.getElementById('stories-wrap');
+  if (!wrap) return;
+  const sort = document.getElementById('story-sort')?.value || 'recent';
+  let stories = [...MOCK.stories];
+
+  if (searchQuery) {
+    stories = stories.filter(s =>
+      s.name.toLowerCase().includes(searchQuery) ||
+      s.id.toLowerCase().includes(searchQuery) ||
+      s.owner.toLowerCase().includes(searchQuery) ||
+      s.apps.some(a => a.name.includes(searchQuery) || a.branch.includes(searchQuery))
+    );
+  }
+  if (sort === 'id') stories.sort((a,b) => a.id.localeCompare(b.id));
+  if (sort === 'failures') stories.sort((a,b) => (b.locked?1:0)-(a.locked?1:0));
+
+  wrap.innerHTML = stories.map(s => {
+    const isOpen = openStories.has(s.id);
+    return `
+      <div class="story-group" id="sg-${s.id}">
+        <div class="story-row" style="border-left-color:${s.borderColor};" onclick="toggleStory('${s.id}')">
+          <div style="display:flex;align-items:flex-start;gap:0;">
+            <span class="story-expand ${isOpen?'open':''}" id="exp-${s.id}">${svg('<polyline points="9 18 15 12 9 6"/>')}</span>
+            <div>
+              <div class="story-name-text">${s.id}: ${s.name}</div>
+              <div class="story-meta">Parent Story · ${s.apps.length} application${s.apps.length!==1?'s':''}</div>
+            </div>
+          </div>
+          <div class="owner-cell">
+            <div class="avatar" style="background:${s.avatarBg};color:${s.avatarColor};">${s.initials}</div>
+            <div class="owner-info"><div class="owner-name">${s.owner}</div><div class="owner-time">${s.time}</div></div>
+          </div>
+          <div style="text-align:center;"><span class="chip ${s.chip}"><span class="chip-dot"></span>${s.chipLabel}</span></div>
+          <div class="story-actions" onclick="event.stopPropagation()">
+            ${s.locked
+              ? '<button class="btn btn-ghost btn-sm" style="opacity:0.45;cursor:not-allowed;" disabled>SIT Locked</button>'
+              : '<button class="btn btn-teal btn-sm" onclick="showToast(\'SIT request submitted!\')">Request SIT</button>'
+            }
+            <button class="more-btn">⋯</button>
+          </div>
+        </div>
+        <div class="apps-wrap ${isOpen?'open':''}" id="apps-${s.id}">
+          ${s.apps.map(a => `
+            <div class="app-row">
+              <div>
+                <div class="app-name-text">⬡ ${a.name}</div>
+                <div class="app-branch">${branchSvg} ${a.branch}</div>
+              </div>
+              <div class="owner-cell">
+                <div class="avatar" style="background:${a.avBg};color:${a.avColor};font-size:8px;">${a.initials}</div>
+                <div style="font-size:10px;font-weight:700;">${a.owner}</div>
+              </div>
+              <div style="text-align:center;"><span class="chip ${a.chip}"><span class="chip-dot"></span>${a.chipLabel}</span></div>
+              <div class="story-actions">
+                <button class="btn ${a.actionClass}" ${a.disabled?'style="opacity:0.4;cursor:not-allowed;" disabled':''} onclick="showToast('${a.actionLabel} triggered')">${a.actionLabel}</button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleStory(id) {
+  if (openStories.has(id)) openStories.delete(id);
+  else openStories.add(id);
+  const appsEl = document.getElementById('apps-'+id);
+  const expEl  = document.getElementById('exp-'+id);
+  if (appsEl) appsEl.classList.toggle('open', openStories.has(id));
+  if (expEl)  expEl.classList.toggle('open', openStories.has(id));
+}
+
+function renderTimeline() {
+  const c = document.getElementById('tl-steps');
+  if (!c) return;
+  MOCK.timeline.forEach(step => {
+    const color = step.done ? 'var(--teal)' : step.active ? 'var(--primary)' : 'var(--text3)';
+    const opacity = (!step.done && !step.active) ? 'opacity:0.55;' : '';
+    const d = document.createElement('div');
+    d.className = 'tl-step';
+    d.style.cssText = opacity;
+    d.innerHTML = `
+      <div class="tl-dot" style="border-color:${color};">
+        ${step.done ? `<svg viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="3" style="width:11px;height:11px;"><polyline points="20 6 9 17 4 12"/></svg>`
+          : step.active ? `<span style="width:8px;height:8px;border-radius:50%;background:var(--primary);display:block;animation:pulseGrow 1.8s infinite;"></span>`
+          : `<span style="width:7px;height:7px;border-radius:50%;border:1px solid ${color};display:block;"></span>`}
+      </div>
+      <div class="tl-step-name">${step.name}</div>
+      <div class="tl-step-status" style="color:${color};">${step.status}</div>
+      <div class="tl-step-date">${step.date}</div>
+    `;
+    c.appendChild(d);
+  });
+}
+
+/* ═══════════════════════ DEPLOYMENT QUEUE ═══════════════════════ */
+function renderQueue() {
+  const el = document.getElementById('page-queue');
+  el.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px;">
+      <div>
+        <h2 class="page-title">Deployment Queue</h2>
+        <p class="page-sub">Managing approved requests for SIT &amp; NFT windows</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--teal);display:inline-block;animation:pulseGrow 2s infinite;"></span>
+        <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Master Node: Operational</span>
+      </div>
+    </div>
+
+    <div class="dq-stats">
+      ${MOCK.dqStats.map(s => `
+        <div class="dq-stat ${s.highlight?'highlight':''}">
+          <div class="dq-stat-label">${s.label}</div>
+          <div class="dq-stat-value" style="color:${s.color};">${s.val}</div>
+          <div class="dq-stat-icon">${s.icon}</div>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="dq-layout">
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <span style="font-size:14px;font-weight:700;font-family:Manrope,sans-serif;">Active Queue</span>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-ghost btn-sm">Filter: Approved</button>
+            <button class="btn btn-ghost btn-sm">Sort: Priority</button>
+          </div>
+        </div>
+        <div class="queue-table">
+          <div class="qt-head">
+            <div>Application</div><div>Source Branch</div><div>Env</div><div>Status</div><div>Actions</div>
+          </div>
+          ${MOCK.queue.map(q => `
+            <div class="qt-row">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div class="qt-app-icon">${q.icon}</div>
+                <div>
+                  <div class="qt-app-name">${q.app}</div>
+                  <div class="qt-app-cid">CID: ${q.cid}</div>
+                </div>
+              </div>
+              <div class="qt-branch-text">${commitSvg} ${q.branch}</div>
+              <div><span class="env-tag ${q.env==='SIT'?'env-sit':'env-nft'}">${q.env}</span></div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span class="${q.status==='Approved'?'pulse-dot':''}" style="width:6px;height:6px;border-radius:50%;background:${q.statusColor};display:inline-block;"></span>
+                <span style="font-size:11px;font-weight:700;color:${q.statusColor};">${q.status}</span>
+              </div>
+              <div style="text-align:right;"><button class="btn btn-primary btn-sm" onclick="showToast('${q.app} deployment triggered!')">Manual Trigger</button></div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="emergency-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:28px;height:28px;color:var(--text3);"><path d="M4.5 16.5c-1.5 1.5-1.5 4 0 5.5C6 23.5 8.5 23.5 10 22l10-10C21.5 10.5 22 9.5 22 8.5c0-1-.5-2-1-2.5C19.5 4.5 18.5 4 17.5 4c-1 0-2 .5-3 1.5L5.5 14.5"/><line x1="9" y1="6" x2="18" y2="15"/></svg>
+          <p>Have an emergency hotfix that can't wait?</p>
+          <button class="btn btn-ghost btn-sm" onclick="showToast('Emergency trigger opened')">Emergency Manual Trigger</button>
+        </div>
+      </div>
+
+      <div class="dq-sidebar">
+        <div class="windows-card">
+          <div class="wc-label">Upcoming Windows</div>
+          ${MOCK.windows.map(w => `
+            <div class="window-item ${w.active?'wi-active':'wi-dim'}">
+              <div class="window-title">${w.title}</div>
+              <div class="window-time">${w.time}</div>
+              <span class="window-countdown ${!w.active?'wc-gray':''}">${w.countdown}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/* ═══════════════════════ TOAST ═══════════════════════ */
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.style.cssText = `position:fixed;bottom:24px;right:24px;background:var(--bg4);border:1px solid var(--border2);border-left:3px solid var(--primary);color:var(--text);padding:12px 18px;border-radius:8px;font-size:12px;font-weight:600;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,0.4);animation:fadeUp 0.2s ease;`;
+  t.textContent = '✓  ' + msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+
+/* ═══════════════════════ COUNTDOWN TIMER ═══════════════════════ */
+let sitSeconds = 2*3600+14*60+55;
+let nftSeconds = 18*3600+45*60+10;
+setInterval(() => {
+  if (sitSeconds > 0) sitSeconds--;
+  if (nftSeconds > 0) nftSeconds--;
+  const fmt = s => `${String(Math.floor(s/3600)).padStart(2,'0')}:${String(Math.floor(s%3600/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+  const dqVals = document.querySelectorAll('.dq-stat-value');
+  if (dqVals[1]) dqVals[1].textContent = fmt(sitSeconds);
+  if (dqVals[2]) dqVals[2].textContent = fmt(nftSeconds);
+  const uw = document.querySelectorAll('.window-countdown');
+  if (uw[0]) uw[0].textContent = 'Starts in ' + fmt(sitSeconds);
+}, 1000);
+/* ═══════════════════════ THEME TOGGLE ═══════════════════════ */
+function toggleTheme() {
+  const html = document.documentElement;
+  if (html.classList.contains('light')) {
+    html.classList.remove('light');
+    html.classList.add('dark');
+    localStorage.setItem('rh-theme', 'dark');
+  } else {
+    html.classList.remove('dark');
+    html.classList.add('light');
+    localStorage.setItem('rh-theme', 'light');
+  }
+}
+(function() {
+  const saved = localStorage.getItem('rh-theme');
+  if (saved === 'light') {
+    document.documentElement.classList.remove('dark');
+    document.documentElement.classList.add('light');
+  }
+})();
+
+/* ═══════════════════════ INIT ═══════════════════════ */
+renderDashboard();
+renderRelease();
+renderQueue();
+</script>
+</body>
+</html>

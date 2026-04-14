@@ -1,0 +1,37 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Alex Thorne",
+      "email": "alex@releasehub.io",
+      "password": "lead123",
+      "role": "project_lead",
+      "roleLabel": "Project Lead",
+      "initials": "AT",
+      "avatarBg": "linear-gradient(135deg, #1e3a5f, #2d5a8e)",
+      "avatarColor": "#5da5f5"
+    },
+    {
+      "id": 2,
+      "name": "Marcus Vega",
+      "email": "marcus@releasehub.io",
+      "password": "dev123",
+      "role": "developer",
+      "roleLabel": "Developer",
+      "initials": "MV",
+      "avatarBg": "linear-gradient(135deg, #1a3d2e, #1fb88d)",
+      "avatarColor": "#34d5a8"
+    },
+    {
+      "id": 3,
+      "name": "Nina Walsh",
+      "email": "nina@releasehub.io",
+      "password": "idt123",
+      "role": "idt_member",
+      "roleLabel": "IDT Member",
+      "initials": "NW",
+      "avatarBg": "linear-gradient(135deg, #2d1f4e, #5b3b8e)",
+      "avatarColor": "#a78bfa"
+    }
+  ]
+}

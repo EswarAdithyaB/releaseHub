@@ -1,0 +1,82 @@
+/* ═══════════════════════════════════════════════════
+   DASHBOARD.CSS — Dashboard Page Styles
+   ═══════════════════════════════════════════════════ */
+
+.dash-hero { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 18px; }
+.releases-row { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; margin-bottom: 24px; }
+.rel-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px;
+  border-top: 3px solid;
+  cursor: pointer; transition: all 0.2s;
+  position: relative; overflow: hidden;
+}
+.rel-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+.rel-card-id { font-family: 'Manrope', sans-serif; font-size: 20px; font-weight: 900; margin-bottom: 14px; }
+.rel-row { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px; }
+.rel-row .lbl { color: var(--text3); }
+.rel-row .val { font-weight: 700; }
+.prog-wrap { margin: 10px 0 6px; }
+.prog-bar { height: 3px; background: var(--bg); border-radius: 3px; overflow: hidden; }
+.prog-fill { height: 100%; border-radius: 3px; }
+.prog-labels { display: flex; justify-content: space-between; font-size: 9px; font-weight: 700; margin-bottom: 4px; }
+.rel-status { display: flex; align-items: center; gap: 6px; margin-top: 12px; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; }
+.status-text { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+.urgent-tag {
+  position: absolute; top: 6px; right: -16px;
+  background: var(--red2); color: white; font-size: 8px; font-weight: 700;
+  padding: 2px 22px; transform: rotate(30deg); letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+.dash-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+.action-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px; border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.action-item:last-child { border-bottom: none; }
+.action-item:hover { background: rgba(255,255,255,0.015); }
+.action-icon {
+  width: 34px; height: 34px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 15px;
+}
+.action-info { flex: 1; min-width: 0; }
+.action-title { font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.action-desc { font-size: 10px; color: var(--text3); margin-top: 2px; }
+.action-btns { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+.dismiss-btn { background: none; border: none; color: var(--text3); cursor: pointer; padding: 4px; border-radius: 4px; line-height: 1; }
+.dismiss-btn:hover { color: var(--red); }
+
+.health-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.health-card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px;
+}
+.health-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+.health-label { font-size: 9px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 1px; }
+.health-val { font-family: 'Manrope', sans-serif; font-size: 22px; font-weight: 900; }
+.health-sub { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+.spark-bars { display: flex; align-items: flex-end; gap: 3px; height: 32px; }
+.spark-bar { width: 4px; border-radius: 2px 2px 0 0; }
+
+.quick-panel { display: flex; flex-direction: column; gap: 0; }
+.quick-item {
+  display: flex; align-items: center; padding: 14px 18px;
+  border-bottom: 1px solid var(--border); gap: 12px;
+  cursor: pointer; transition: all 0.15s;
+  border-left: 3px solid transparent;
+}
+.quick-item:last-child { border-bottom: none; }
+.quick-item:hover { background: rgba(255,255,255,0.02); }
+.quick-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 16px;
+}
+.quick-title { font-size: 12px; font-weight: 700; }
+.quick-sub { font-size: 10px; color: var(--text3); margin-top: 1px; }
+.quick-arrow { margin-left: auto; color: var(--text3); }
+.quick-arrow svg { width: 12px; height: 12px; }

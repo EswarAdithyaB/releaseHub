@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Release Hub | Sign In</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/variables.css"/>
+<link rel="stylesheet" href="css/login.css"/>
+</head>
+<body>
+
+<div class="login-shell">
+
+  <!-- ─── LEFT: Branding Panel ─── -->
+  <div class="login-brand">
+    <div class="brand-logo-wrap">
+      <div class="brand-logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">Release Hub</div>
+        <div class="brand-sub">Mission Control</div>
+      </div>
+    </div>
+
+    <div class="brand-body">
+      <h1 class="brand-headline">Your <span>release pipeline</span>,<br/>fully in control.</h1>
+      <p class="brand-desc">Manage Jira stories, track CI/CD pipelines, coordinate SIT deployments, and ship with confidence — all from one unified hub.</p>
+      <div class="brand-features">
+        <div class="brand-feature">
+          <div class="brand-feature-icon" style="background:rgba(93,165,245,0.1);">🔀</div>
+          <span>End-to-end branch &amp; merge management</span>
+        </div>
+        <div class="brand-feature">
+          <div class="brand-feature-icon" style="background:rgba(52,213,168,0.08);">🚀</div>
+          <span>Automated deployment queue &amp; SIT windows</span>
+        </div>
+        <div class="brand-feature">
+          <div class="brand-feature-icon" style="background:rgba(167,139,250,0.08);">📊</div>
+          <span>Real-time release health &amp; QA analytics</span>
+        </div>
+        <div class="brand-feature">
+          <div class="brand-feature-icon" style="background:rgba(240,180,41,0.08);">👥</div>
+          <span>Role-based access for PL, Dev &amp; IDT teams</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="brand-footer">© 2026 Release Hub · v1.0.0-prototype</div>
+  </div>
+
+  <!-- ─── RIGHT: Login Form Panel ─── -->
+  <div class="login-form-panel">
+    <div class="login-card">
+
+      <h2 class="login-card-title">Welcome back</h2>
+      <p class="login-card-sub">Sign in to access your release dashboard</p>
+
+      <!-- Error message -->
+      <div class="form-error hidden" id="login-error">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span id="login-error-msg">Invalid email or password.</span>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <div class="form-input-wrap">
+            <span class="form-input-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </span>
+            <input
+              class="form-input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@releasehub.io"
+              autocomplete="email"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <div class="form-input-wrap">
+            <span class="form-input-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </span>
+            <input
+              class="form-input"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+            <button type="button" class="pwd-toggle" id="pwd-toggle" onclick="togglePassword()" title="Show/hide password">
+              <svg id="pwd-eye-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg id="pwd-eye-hide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="login-btn" id="login-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+            <polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/>
+          </svg>
+          Sign In
+        </button>
+      </form>
+
+      <!-- Sample Credentials Hint -->
+      <div class="hint-section">
+        <div class="hint-divider">
+          <div class="hint-divider-line"></div>
+          <span class="hint-divider-text">Prototype — click to auto-fill</span>
+          <div class="hint-divider-line"></div>
+        </div>
+        <div class="hint-cards" id="hint-cards">
+          <!-- Populated by JS from users.json -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+  /* ─── Apply saved theme ─── */
+  (function() {
+    const saved = localStorage.getItem('rh-theme');
+    if (saved === 'light') {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    }
+  })();
+
+  /* ─── If already logged in, redirect to app ─── */
+  if (Auth.getSession()) {
+    window.location.replace('index.html');
+  }
+
+  /* ─── Role badge colours ─── */
+  const ROLE_BADGE_STYLE = {
+    project_lead: 'color:var(--primary);border-color:rgba(93,165,245,0.3);background:rgba(93,165,245,0.08);',
+    developer:    'color:var(--teal);border-color:rgba(52,213,168,0.3);background:rgba(52,213,168,0.08);',
+    idt_member:   'color:var(--purple);border-color:rgba(167,139,250,0.3);background:rgba(167,139,250,0.08);'
+  };
+
+  /* ─── Populate hint cards from users.json ─── */
+  Auth.loadUsers().then(users => {
+    const container = document.getElementById('hint-cards');
+    container.innerHTML = users.map(u => `
+      <div class="hint-card" onclick="fillCredentials('${u.email}','${u.password}')">
+        <div class="hint-avatar" style="background:${u.avatarBg};color:${u.avatarColor};">${u.initials}</div>
+        <div class="hint-info">
+          <div class="hint-name">${u.name}</div>
+          <div class="hint-creds">${u.email} · ${u.password}</div>
+        </div>
+        <span class="hint-role-badge" style="${ROLE_BADGE_STYLE[u.role]}">${u.roleLabel}</span>
+        <span class="hint-use">Use ↗</span>
+      </div>
+    `).join('');
+  });
+
+  /* ─── Auto-fill on hint click ─── */
+  function fillCredentials(email, password) {
+    document.getElementById('email').value = email;
+    document.getElementById('password').value = password;
+    document.getElementById('login-error').classList.add('hidden');
+  }
+
+  /* ─── Password visibility toggle ─── */
+  function togglePassword() {
+    const input = document.getElementById('password');
+    const show  = document.getElementById('pwd-eye-show');
+    const hide  = document.getElementById('pwd-eye-hide');
+    if (input.type === 'password') {
+      input.type = 'text';
+      show.style.display = 'none';
+      hide.style.display = 'block';
+    } else {
+      input.type = 'password';
+      show.style.display = 'block';
+      hide.style.display = 'none';
+    }
+  }
+
+  /* ─── Login handler ─── */
+  async function handleLogin(e) {
+    e.preventDefault();
+    const email    = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const btn      = document.getElementById('login-btn');
+    const errBox   = document.getElementById('login-error');
+    const errMsg   = document.getElementById('login-error-msg');
+
+    btn.classList.add('loading');
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 0.8s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Signing in…`;
+
+    /* small artificial delay for UX feel */
+    await new Promise(r => setTimeout(r, 600));
+
+    const result = await Auth.login(email, password);
+
+    if (result.success) {
+      window.location.replace('index.html');
+    } else {
+      errMsg.textContent = result.message;
+      errBox.classList.remove('hidden');
+      btn.classList.remove('loading');
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg> Sign In`;
+    }
+  }
+</script>
+
+<style>
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</body>
+</html>
