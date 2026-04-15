@@ -99,6 +99,7 @@ const Auth = (() => {
       'page:dashboard',
       'page:release',
       'page:queue',
+      'page:branches',                // Branch Management
       'dashboard:new-release',        // "New Release" button
       'dashboard:filter',             // Filter button
       'release:request-sit',          // Request SIT per story
@@ -113,6 +114,7 @@ const Auth = (() => {
     developer: [
       'page:dashboard',
       'page:release',
+      'page:branches',                // Branch Management
       // 'page:queue' — NOT accessible for developers
       'dashboard:filter',
       'release:request-sit',
@@ -124,6 +126,7 @@ const Auth = (() => {
       // 'page:release' — read-only for IDT
       'page:release:readonly',
       'page:queue',
+      'page:branches',                // Branch Management
       'queue:manual-trigger',
       'queue:emergency-trigger',
       'queue:filter-sort'
@@ -147,9 +150,9 @@ const Auth = (() => {
 
   /* ─── Nav items visible per role ─── */
   const NAV_VISIBILITY = {
-    project_lead: ['dashboard', 'release', 'queue'],
-    developer:    ['dashboard', 'release'],
-    idt_member:   ['dashboard', 'release', 'queue']
+    project_lead: ['dashboard', 'release', 'queue', 'branches'],
+    developer:    ['dashboard', 'release', 'branches'],
+    idt_member:   ['dashboard', 'release', 'queue', 'branches']
   };
 
   function getVisibleNav() {

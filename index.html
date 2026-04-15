@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="css/dashboard.css"/>
 <link rel="stylesheet" href="css/release.css"/>
 <link rel="stylesheet" href="css/queue.css"/>
+<link rel="stylesheet" href="css/branches.css"/>
 
 <style>
 /* ─── User footer with role badge ─── */
@@ -104,6 +105,10 @@ html.light .readonly-banner { background: rgba(217,119,6,0.06); border-color: rg
         Deployment Queue
       </a>
       <div class="nav-section-label" style="margin-top:10px;">System</div>
+      <a class="nav-item" id="nav-branches" onclick="showPage('branches')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+        Branch Management
+      </a>
       <a class="nav-item" href="#">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
         Settings
@@ -152,6 +157,9 @@ html.light .readonly-banner { background: rgba(217,119,6,0.06); border-color: rg
 
     <!-- ══ DEPLOYMENT QUEUE ══ -->
     <div class="page" id="page-queue"></div>
+
+    <!-- ══ BRANCH MANAGEMENT ══ -->
+    <div class="page" id="page-branches"></div>
   </div>
 </div>
 
@@ -164,6 +172,7 @@ html.light .readonly-banner { background: rgba(217,119,6,0.06); border-color: rg
 <script src="js/dashboard.js"></script>
 <script src="js/release.js"></script>
 <script src="js/queue.js"></script>
+<script src="js/branches.js"></script>
 <script src="js/app.js"></script>
 
 </body>

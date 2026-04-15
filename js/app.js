@@ -107,7 +107,7 @@ function applyAuthToUI() {
   }
 
   /* Lock nav items the user can't access */
-  ['dashboard', 'release', 'queue'].forEach(page => {
+  ['dashboard', 'release', 'queue', 'branches'].forEach(page => {
     const navEl = document.getElementById('nav-' + page);
     if (!navEl) return;
     if (!visibleNav.includes(page)) {
@@ -137,6 +137,7 @@ renderReleaseTabs();
 renderDashboard();
 renderRelease(currentReleaseId);
 renderQueue();
+renderBranches(currentReleaseId);
 
 /* 4. Apply auth-driven UI (user name, role badge, nav locks) */
 applyAuthToUI();
